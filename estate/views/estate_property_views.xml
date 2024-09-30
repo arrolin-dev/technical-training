@@ -8,7 +8,6 @@
     </record>
 
 
-
     <record id="estate_property_list" model="ir.ui.view">
         <field name="name">estate_property_list</field>
         <field name="model">estate_property</field>
@@ -39,12 +38,10 @@
                     </div>
                     <group>
                         <group>
-                            <field name="name"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
                         <group>
-                            <field name="last_seen"/>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                         </group>
