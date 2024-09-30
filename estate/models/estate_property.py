@@ -20,7 +20,7 @@ class EstateProperty(models.Model):
 
     # Relationships
     # -------------
-    property_type_id = fields.many2one("estate.property.type")
+    property_type_id = fields.Many2one("estate.property.type")
     salesperson_id = fields.Many2one("res.users", default=lambda self: self.env.user)
     byer_id = fields.Many2one("res.partner",copy=False)
     #tag_ids = fields.Many2many("estate.property.tag")
