@@ -32,6 +32,11 @@
         <field name="arch" type="xml">
             <form string="Real Estate">
                 <sheet>
+                    <div class="oe_title">
+                        <h1 class="mb32">
+                            <field name="name" class="mb16"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
                             <field name="name"/>
