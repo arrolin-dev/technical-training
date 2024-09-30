@@ -7,8 +7,9 @@ class EstateProperty(models.Model):
     name = fields.Char(required=True, default="Unknown")
     active = fields.Boolean(default=True)
     state = fields.Selection(
-        selection=[('offered','Offered'),('sold','Sold')],
-    ),
+        selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
+        default='new'
+    )
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(copy=False,default=fields.Date.today())
