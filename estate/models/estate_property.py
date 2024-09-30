@@ -1,9 +1,14 @@
 from odoo import models, fields
 
 class EstateProperty(models.Model):
+
+    # Private Attributes
+    # ------------------
     _name = "estate_property"
     _description = "Estate Property"
 
+    # Special Attributes
+    # ------------------
     name = fields.Char(string='Title',required=True, default="Unknown")
     active = fields.Boolean(default=True)
     state = fields.Selection(
@@ -12,6 +17,18 @@ class EstateProperty(models.Model):
     )
     last_seen = fields.Datetime("Last Seen", default=fields.Datetime.now)
 
+
+    # Relationships
+    # -------------
+    property_type_id = fields.many2one("estate.property.type")
+    salesperson_id = fields.Many2one("res.users", default=lambda self: self.env.user)
+    byer_id = fields.Many2one("res.partner",copy=False)
+    #tag_ids = fields.Many2many("estate.property.tag")
+    #offer_ids = fields.One2many("estate.property.offer", "property_id")
+
+
+    # Public Attributes
+    # -----------------
     description = fields.Text()
     postcode = fields.Char(string='Postcode')
     date_availability = fields.Date(string='Available From',copy=False,default=fields.Date.add(value = fields.Date.today(),months=3))
