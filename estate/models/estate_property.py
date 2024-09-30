@@ -1,16 +1,16 @@
-from odoo import models, fields
+from odoo import models, fields, Date
 
 class EstateProperty(models.Model):
     _name = "estate_property"
     _description = "Estate Property"
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, default="Unknown")
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date()
+    date_availability = fields.Date(copy=False,default=Date.today())
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float()
-    bedrooms = fields.Integer()
+    selling_price = fields.Float(readonly=True,copy=False)
+    bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
