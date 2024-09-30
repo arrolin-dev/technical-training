@@ -10,6 +10,8 @@ class EstateProperty(models.Model):
         selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
         default='new'
     )
+    last_seen = fields.Datetime("Last Seen", default=fields.Datetime.now)
+    
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(copy=False,default=fields.Date.add(value = fields.Date.today(),months=3))
