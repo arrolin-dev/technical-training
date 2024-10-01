@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import _, models, fields, api
+from odoo.exceptions import UserError
 
 class EstateProperty(models.Model):
 
@@ -49,6 +50,17 @@ class EstateProperty(models.Model):
     # ---------------
     total_area = fields.Float(compute="_compute_total_area", store=True)
     best_price = fields.Float(compute='_compute_best_price')
+
+    # Actions
+    # -------
+    def action_sell_property(self):
+        for property in self:
+            if property.state == 'cancelled':
+                raise UserError(_("Cancelled properties cannot be sold"))
+            property.state = 'sold'
+
+    def action_cancel_property(self):
+        self.state = 'cancelled'
 
 
     @api.depends('living_area', 'garden_area')
