@@ -33,6 +33,7 @@ class EstatePropertyOffer(models.Model):
         self.status='refused'
         return True
 
+
     # Auto Computes
     # -------------
     @api.depends('validity','create_date')
@@ -45,7 +46,10 @@ class EstatePropertyOffer(models.Model):
         for estate in self:
             estate.validity = (estate.date_deadline - fields.Date.to_date(estate.create_date)).days
 
-    @api.onchange('property_id')
-    def _onchange_property(self):
-        if self.property_id.state == 'new':
-            self.property_id.state = 'offer_received'
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals['partner_id'].state == 'new':
+                vals['partner_id'].state = 'offer_received'
+        return super.create(self, vals_list)
+
