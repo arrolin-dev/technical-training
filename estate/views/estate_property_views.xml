@@ -72,6 +72,19 @@
         </field>
     </record>
 
+   <record id="estate_property_offer_form" model="ir.ui.view">
+        <field name="name">estate_property_offer_form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Offer">
+                <group>
+                    <field name="price"/>
+                    <field name="partner_id"/>
+                    <field name="status"/>
+                </group>
+            </form>
+        </field>
+    </record>
 
     <record id="estate_property_form" model="ir.ui.view">
         <field name="name">estate_property_form</field>
@@ -83,6 +96,8 @@
                         <h1 class="mb32">
                             <field name="name" class="mb16"/>
                         </h1>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                        <separator/>
                     </div>
                     <group>
                         <group>
@@ -91,7 +106,6 @@
                             <field name="date_availability"/>
                         </group>
                         <group>
-                            <field name="tag_ids" widget="many2many_tags"/>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                         </group>
@@ -109,7 +123,7 @@
                                 <field name="garden_orientation"/>
                             </group>
                         </page>
-                        <page string="Offers">
+                        <page>
                             <group>
                                 <field name="offer_ids"/>
                             </group>
