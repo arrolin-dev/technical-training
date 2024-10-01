@@ -19,6 +19,11 @@
         <field name="view_mode">list,form</field>
     </record>
 
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offer</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">list,form</field>
+    </record>
 
     <record id="estate_property_list" model="ir.ui.view">
         <field name="name">estate_property_list</field>
@@ -75,6 +80,7 @@
                             <field name="date_availability"/>
                         </group>
                         <group>
+                            <field name="tag_ids" widget="many2many_tags"/>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                         </group>
@@ -90,6 +96,11 @@
                                 <field name="garden"/>
                                 <field name="garden_area"/>
                                 <field name="garden_orientation"/>
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <group>
+                                <field name="offer_ids"/>
                             </group>
                         </page>
                         <page string="Other Info">
