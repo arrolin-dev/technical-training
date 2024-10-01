@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import _,models, fields, api
 from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
@@ -26,10 +26,12 @@ class EstatePropertyOffer(models.Model):
     def action_accept_offer(self):
         # One should only accept an offer, if the state is not on 'accepted' already.
         for offer in self:
-            if offer.property_id.state == 'offer_received' or 'new':
+            if offer.property_id.state in ('offer_received', 'new'):
                 offer.property_id.selling_price = offer.price
                 offer.property_id.state = 'offer_accepted'
+                offer.status='accepted'
             else:
+                 offer.status='refused'
                  raise UserError(_("Only one offer can be accepted."))
         return True
 
