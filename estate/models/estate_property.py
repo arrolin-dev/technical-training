@@ -47,7 +47,7 @@ class EstateProperty(models.Model):
 
     # Computed fields
     # ---------------
-    total_area = fields.Float(compute="_compute_total_area")
+    total_area = fields.Float(compute="_compute_total_area", store=True)
     best_price = fields.Float(compute='_compute_best_price')
 
 
@@ -63,6 +63,14 @@ class EstateProperty(models.Model):
                 property.best_price = max(property.offer_ids.mapped('price'))
             else:
                 property.best_price = 0
+    
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        if self.garden:
+            self.garden_area=100
+            self.garden_orientation = 'north'
+        else:
+            self.garden_area = self.garden_orientation = False
     
 
 
