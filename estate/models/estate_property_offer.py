@@ -45,3 +45,7 @@ class EstatePropertyOffer(models.Model):
         for estate in self:
             estate.validity = (estate.date_deadline - fields.Date.to_date(estate.create_date)).days
 
+    @api.onchange('property_id')
+    def _onchange_property(self):
+        if self.property_id.state == 'new':
+            self.property_id.state = 'offer_received'
