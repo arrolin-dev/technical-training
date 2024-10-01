@@ -123,7 +123,7 @@
                                 <field name="garden_orientation"/>
                             </group>
                         </page>
-                        <page>
+                        <page string="Offers">
                             <group>
                                 <field name="offer_ids"/>
                             </group>
