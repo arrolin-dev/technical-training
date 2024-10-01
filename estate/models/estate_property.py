@@ -51,6 +51,15 @@ class EstateProperty(models.Model):
     total_area = fields.Float(compute="_compute_total_area", store=True)
     best_price = fields.Float(compute='_compute_best_price')
 
+    # Constraints and conditions
+    # --------------------------
+    _sql_constraints = [
+        ("check_selling_price", "CHECK(selling_price >= 0)",
+         "The selling price must be positive."),
+        ("check_expected_price", "CHECK(expected_price >= 0)",
+         "The expected price must be positive.")
+    ]
+
     # Actions
     # -------
     def action_sell_property(self):
@@ -58,9 +67,11 @@ class EstateProperty(models.Model):
             if property.state == 'cancelled':
                 raise UserError(_("Cancelled properties cannot be sold"))
             property.state = 'sold'
+        return True
 
     def action_cancel_property(self):
         self.state = 'cancelled'
+        return True
 
 
     @api.depends('living_area', 'garden_area')

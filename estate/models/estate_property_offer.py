@@ -15,18 +15,26 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(compute='_compute_date_deadline', inverse='_inverse_date_deadline')
     validity = fields.Integer(default=7)
 
+    _sql_constraints = [
+        ("check_offer_price", "CHECK(price >= 0)",
+         "The offered price must be positive.")
+    ]
 
     # Actions
     # -------
     def action_accept_offer(self):
+        # One should only accept an offer, if the state is not on 'accepted' already.
         self.status='accepted'
         for offer in self:
             offer.property_id.selling_price = offer.price
+        return True
 
     def action_refuse_offer(self):
         self.status='refused'
+        return True
 
-
+    # Auto Computes
+    # -------------
     @api.depends('validity','create_date')
     def _compute_date_deadline(self):
         for estate in self:
