@@ -10,7 +10,7 @@ class EstateProperty(models.Model):
 
     # Special Attributes
     # ------------------
-    name = fields.Char(string='Title',required=True, default="Unknown")
+    name = fields.Char(string='MyTitle',required=True, default="Unknown")
     active = fields.Boolean(default=True)
     state = fields.Selection(
         selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
